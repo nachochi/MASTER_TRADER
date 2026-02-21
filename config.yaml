@@ -1,0 +1,54 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# MASTER_TRADER — Live Configuration
+# Edit any value here while the bot is running. Changes hot-reload every cycle.
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ── Trading Mode ────────────────────────────────────────────────────────────
+mode:
+  paper: true                   # false = live (requires exchange keys)
+  symbol: BTCUSDT
+  analysis_interval_sec: 10     # cycle speed (10 = scalp, 60 = swing)
+  initial_balance: 10000.0
+
+# ── Risk Management ─────────────────────────────────────────────────────────
+risk:
+  stop_loss_pct: 0.003          # 0.3% — tight scalp stop
+  take_profit_pct: 0.006        # 0.6% — 2:1 R:R
+  max_open_trades: 5
+  max_position_usd: 500.0       # hard cap per trade
+  max_drawdown_pct: 0.08        # halt at 8% drawdown
+  min_confidence: 0.55          # signal confidence threshold
+  kelly_max_fraction: 0.25      # half-Kelly cap
+  kelly_min_fraction: 0.01
+
+# ── Signal Layers (toggle each on/off) ──────────────────────────────────────
+signals:
+  microstructure:  true         # order book imbalance (OBI)
+  phase_space:     true         # Takens delay embedding + Lyapunov
+  sentiment:       true         # Fear & Greed + CryptoPanic news
+  topology:        true         # persistent homology alarm
+  geometry:        true         # wavelet / phasor / attractor Fourier
+  neural_fusion:   true         # hierarchical MoE neural override
+
+# ── Neural Model ─────────────────────────────────────────────────────────────
+neural:
+  learning_rate: 0.001
+  online_training: true         # train from every closed trade
+  save_every_n_steps: 50
+
+# ── Dashboard ────────────────────────────────────────────────────────────────
+dashboard:
+  port: 8765
+  broadcast_every_n_cycles: 1  # 1 = every cycle, 2 = every other, etc.
+  phase_minimap: true
+  radar_chart: true
+
+# ── JJ Timing Substrate ─────────────────────────────────────────────────────
+substrate:
+  enabled: true
+  log_consensus: true
+
+# ── Sentiment Sources ────────────────────────────────────────────────────────
+sentiment:
+  fear_greed_ttl_sec: 3600      # cache Fear & Greed for 1 hour
+  news_ttl_sec: 900             # cache CryptoPanic news for 15 min

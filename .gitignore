@@ -1,0 +1,7 @@
+gateway.env
+*.env
+__pycache__/
+*.pyc
+*.log
+memory/shape_library.json
+timing_substrate/
